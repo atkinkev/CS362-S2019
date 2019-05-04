@@ -89,6 +89,21 @@ int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
 
 Cards not in game should initialize supply position to -1 */
 
+//Declaring refactored cards here so they can be called from test
+int drawCard(int player, struct gameState *state);
+
+int adventurerEffect(int currentPlayer, struct gameState* state, int* temp);
+
+int smithyEffect(int currentPlayer, struct gameState* state, int handPos);
+
+int remodelEffect(int currentPlayer, struct gameState* state, int choice1, int choice2, int handPos);
+
+int villageEffect(int currentPlayer, struct gameState* state, int handPos);
+
+int council_roomEffect(int currentPlayer, struct gameState* state, int handPos);
+
+int gainCard(int supplyPos, struct gameState *state, int toFlag, int player);
+
 int shuffle(int player, struct gameState *state);
 /* Assumes all cards are now in deck array (or hand/played):  discard is
  empty */
