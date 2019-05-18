@@ -1,0 +1,54 @@
+
+
+*****************************************************************************
+*************************** BEGIN REMODEL TEST ***************************
+*****************************************************************************
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 11 Actual: 10
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 7 Actual: 6
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 5 Actual: 4
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 9 Actual: 8
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 3 Actual: 2
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 5 Actual: 4
+FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 1 Actual: 0
+More than 10 fails recorded for this test. See end of test totals for total counts.
+
+**** END OF TEST TOTALS ****
+Chosen Card Discrepancies: 62959
+
+*****************************************************************************
+*************************** BEGIN STEWARD TEST ***************************
+*****************************************************************************
+
+**** END OF TEST SUMMARY ****
+CHOICE1 = 1: Test post card hand count incrementing properly: PASS
+CHOICE1 = 2: Test post card coins incrementing properly: PASS
+CHOICE1 = 3: Test post card hand count decrementing properly: PASS
+
+
+*****************************************************************************
+*************************** BEGIN ADVENTURER TEST ***************************
+*****************************************************************************
+FAIL -- Expected Treasure: 16 Actual: 17
+FAIL -- Expected Treasure: 28 Actual: 29
+FAIL -- Expected Treasure: 13 Actual: 14
+FAIL -- Expected Treasure: 9 Actual: 10
+FAIL -- Expected Treasure: 11 Actual: 12
+FAIL -- Expected Treasure: 51 Actual: 52
+FAIL -- Expected Treasure: 11 Actual: 12
+FAIL -- Expected Treasure: 30 Actual: 31
+FAIL -- Expected Treasure: 48 Actual: 49
+FAIL -- Expected Treasure: 47 Actual: 48
+More than 10 treasure discrepancies. See end of log for total failures.
+
+**** END OF TEST TOTALS ****
+Treasure Discrepancies: 98142
+
+
+File 'dominion.c'
+Lines executed:35.17% of 563
+Creating 'dominion.c.gcov'
+

@@ -1,0 +1,75 @@
+*****************************************************************************
+*************************** BEGIN gainCard() TEST ***************************
+*****************************************************************************
+Test gainCard with flag 0 is sent to discard: PASS
+Test gainCard with flag 1 is sent to deck: PASS
+Test gainCard with flag 2 is sent to hand: PASS
+Testing gainCard with unsupported flag doesn't crash: PASS
+File 'unittest1.c'
+Lines executed:86.11% of 36
+Creating 'unittest1.c.gcov'
+
+File '<built-in>'
+No executable lines
+Removing '<built-in>.gcov'
+
+*****************************************************************************
+*************************** BEGIN endTurn() TEST ***************************
+*****************************************************************************
+Testing that it is player 2's turn after player 1 ends their turn: PASS
+Testing that it is player 1's turn after player 2 ends their turn (2 player game): PASS
+*****************************************************************************
+*************************** BEGIN VILLAGE TEST ***************************
+*****************************************************************************
+Testing proper number of actions after playing Village: PASS
+Testing proper number of cards in hand after playing Village: PASS
+Testing proper number of cards in deck after playing Village: PASS
+File 'unittest3.c'
+Lines executed:88.24% of 34
+Creating 'unittest3.c.gcov'
+
+*****************************************************************************
+*************************** BEGIN COUNCIL_ROOM TEST ***************************
+*****************************************************************************
+Testing gain of 4 cards and 1 discard after playing Council Room: FAIL - Expected 8 cards. Actual: 9
+Testing gain of 1 card for all other players: FAIL - Expected 1 cards for player 2. Actual: 0
+File 'unittest4.c'
+Lines executed:87.88% of 33
+Creating 'unittest4.c.gcov'
+
+*****************************************************************************
+*************************** BEGIN STEWARD TEST ***************************
+*****************************************************************************
+Testing Steward card with coins at INT_MAX: FAIL - Integer addition at INT_MAX unhandled.
+File 'cardtest1.c'
+Lines executed:92.86% of 28
+Creating 'cardtest1.c.gcov'
+
+*****************************************************************************
+*************************** BEGIN SMITHY TEST ***************************
+*****************************************************************************
+Testing Smithy behavior added 3 cards to hand: FAIL - Expected: 7 Actual: 6
+Testing Smithy added to discard pile: FAIL - Expected: 1 Actual: 0
+File 'cardtest2.c'
+Lines executed:90.63% of 32
+Creating 'cardtest2.c.gcov'
+
+*****************************************************************************
+*************************** BEGIN REMODEL TEST ***************************
+*****************************************************************************
+Testing choice1 and choice2 outside of array index range doesn't crash and no changes are made: PASS
+Testing trash card choice outside of hand range doesn't crash and no changes are made: PASS
+File 'cardtest3.c'
+Lines executed:91.18% of 34
+Creating 'cardtest3.c.gcov'
+
+*****************************************************************************
+*************************** BEGIN ADVENTURER TEST ***************************
+*****************************************************************************
+Testing Adventurer card with deck full of treasure: FAIL: Improper number of treasure cards added to deck. Expected: 2 Actual: 3
+Testing Adventurer card with all Treasure cards removed from deck: PASS: No treasure cards added to deck and infinite loop avoided.
+Testing Adventurer card with only one treasure card in deck: FAIL: No treasure cards added to deck.
+File 'cardtest4.c'
+Lines executed:79.73% of 74
+Creating 'cardtest4.c.gcov'
+

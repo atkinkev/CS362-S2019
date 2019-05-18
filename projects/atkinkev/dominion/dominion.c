@@ -666,9 +666,9 @@ int adventurerEffect(int currentPlayer,struct gameState *state, int *temphand){
 			z++;
 		}
 	}
-		while(z>=0){
+		while(z-1>=0){
 			state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
-			z += 2;
+			z -= 2;
 		}
 		return 0;		
 }
@@ -697,7 +697,7 @@ int remodelEffect(int currentPlayer, struct gameState *state, int choice1, int c
 	discardCard(handPos, currentPlayer, state, 0);
 
 	// discard trashed card
-	for (i = 0; i < state->handCount[currentPlayer]; i--)
+	for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
           if (state->hand[currentPlayer][i] == j)
             {

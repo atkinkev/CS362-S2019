@@ -15,6 +15,17 @@ testDrawCard: testDrawCard.c dominion.o rngs.o
 
 #########
 
+randomtestresults: randomtestcard1.c randomtestcard2.c randomtestadventurer.c dominion.o rngs.o interface.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o interface.o $(CFLAGS)
+	./randomtestcard1 &> randomtestresults.out
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+	./randomtestcard2 >> randomtestresults.out
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+	./randomtestadventurer >> randomtestresults.out
+	gcov dominion.c >> randomtestresults.out
+	#cat dominion.c.gcov >> randomtestresults.out
+	
+
 badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
 	gcc -o badTestDrawCard -g  badTestDrawCard.c dominion.o rngs.o $(CFLAGS)
 
