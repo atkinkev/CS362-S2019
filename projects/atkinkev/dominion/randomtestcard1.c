@@ -35,10 +35,9 @@ void randomRemodelTest(){
 	int deckSize = 0;
 	int handSize = 0;
         int bonus[] = {};
-	int cardDrawn;
-	int cost1, cost2 = 0;
 	int i,j= 0;
 	int tCountFails = 0;
+	int dcCountFails = 0;
 	int k[10] = {adventurer, steward, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
 
 
@@ -75,8 +74,8 @@ void randomRemodelTest(){
 		choice1 = rand() % test.handCount[player];
 		choice2 = rand() % 28;
 		choiceInDeck = 0;
-		for(j = 0; j < test.deckCount[player]; j++){
-			if (test.deck[player][j] == choice2){
+		for(j = 0; j < test.discardCount[player]; j++){
+			if (test.discard[player][j] == choice2){
 				choiceInDeck++;
 			}
 		}
@@ -87,27 +86,41 @@ void randomRemodelTest(){
 		cardEffect(remodel, choice1, choice2, choice3, &test, handpos, bonus);	
 		
 		choiceInDeckPost = 0;
-                for(j = 0; j < test.deckCount[player]; j++){
-                        if (test.deck[player][j] == choice2){
+                for(j = 0; j < test.discardCount[player]; j++){
+                        if (test.discard[player][j] == choice2){
                                 choiceInDeckPost++;
                         }
                 }
 
-		if (getCost(choice1) + 2 <= getCost(choice2)) {
+		if (getCost(choice2) <= getCost(choice1) + 2) {
 			if (myAssert(choiceInDeckPost, choiceInDeck + 1) == 0){
 				if (tCountFails < 11){
-					printf("%s%d%s%d\n","FAIL: Valid choice not added to deck. Expected choice2 cards in deck: ", choiceInDeck + 1, " Actual: ", choiceInDeckPost);	
+					printf("%s%d%s%d\n","FAIL: Valid choice not added to discard. Expected choice2 cards in discard: ", choiceInDeck + 1, " Actual: ", choiceInDeckPost);	
 				}	
 				tCountFails++;
 			}
 			if (tCountFails == 11){
-				printf("More than 10 fails recorded for this test. See end of test totals for total counts.\n");
+				printf("More than 10 fails recorded for finding choice2 in discard. See end of test totals for total counts.\n");
+			}
+			
+			if (myAssert(test.discardCount[player], original.discardCount[player] + 3) == 0 && test.handCount[player] > 3){
+				if (dcCountFails < 10){
+					printf("%s%d%s%d\n","FAIL: Discard count not accurate. Expected: ", original.discardCount[player] + 3, " Actual: ", test.discardCount[player]);
+				}
+				dcCountFails++;
+				if (dcCountFails == 10){
+					printf("More than 10 fails recorded for discard count checking. See end of totals for total counts.\n");
+				}
 			}
 		}
+		
+
+		
 	}
 
 	printf("\n**** END OF TEST TOTALS ****\n");
-	printf("%s%d\n", "Chosen Card Discrepancies: ", tCountFails); 	
+	printf("%s%d\n", "Chosen Card not added to Discard Fails: ", tCountFails); 
+	printf("%s%d\n", "Test proper number of cards added to discard fails: ", dcCountFails);	
 	
 }
 

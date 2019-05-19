@@ -1,7 +1,7 @@
 /**********************************************************************************************************
  * Kevin Atkins
  * 5/6/2019
- * randomtestcard1.c
+ * randomtestcard2.c
  * *******************************************************************************************************/
 #include "dominion.h"
 #include "dominion_helpers.h"
@@ -28,8 +28,6 @@ int myAssert(int val1, int val2){
 void randomSteward(){
         struct gameState test;
         struct gameState original;
-        int treasureFound = 0;
-        int treasureExpected = 0;
         int player = 0;
         int choice1 = 0;
         int choice2 = 0;
@@ -38,7 +36,6 @@ void randomSteward(){
         int deckSize = 0;
         int handSize = 0;
         int bonus[] = {};
-        int cardDrawn;
         int i,j= 0;
         int hCountFails = 0;
 	int coinCountFails = 0;
@@ -56,50 +53,59 @@ void randomSteward(){
                 initializeGame(2, k, 30, &test);
                 player = whoseTurn(&test);
 		
+		// setup choice and coin params
 		choice1 = rand() % 3  + 1;
 		choice2 = rand() % 28;
 		choice3 = rand() % 28;
 		test.coins = rand() % RAND_MAX;
-	
+
+		// setup deck and hand sizes
+                deckSize = rand() % MAX_DECK + 1;
+                handSize = rand() % deckSize + 1;
+                test.deckCount[player] = deckSize - handSize;
+                test.handCount[player] = handSize;
+			
                 for(j = 0; j < test.deckCount[player]; j++){
-                        if (test.deck[player][j] == curse){
-                                test.deck[player][j] = rand() % 28;
-                        }
+                	test.deck[player][j] = rand() % 28;
                 }
 
                 for(j = 0; j < test.handCount[player]; j++){
-                        if (test.hand[player][j] == curse){
-                                test.hand[player][j] = rand() % 28;
-                        }
+                	test.hand[player][j] = rand() % 28;
                 }
-
+		test.hand[player][test.handCount[player] - 1] = steward;
+		
                 handpos = test.hand[player][test.handCount[player] - 1];
                 memcpy(&original, &test, sizeof(struct gameState));
 
 		cardEffect(steward, choice1, choice2, choice3, &test, handpos, bonus);
 
-
 		if (choice1 == 1){
-			if (myAssert(test.handCount[player], original.handCount[player] + 1) == 0 && hCountFails < 10){
-				printf("%s%d%s%d\n", "(** CHOICE1 = 1 ** FAIL -- Expected post-card hand count: ", original.handCount[player] + 1, " Actual: ", test.handCount[player]);
+			if (myAssert(test.handCount[player], original.handCount[player] + 1) == 0 && test.deckCount[player] > 2){
+				if (hCountFails < 10){
+					printf("%s%d%s%d\n", "(** CHOICE1 = 1 ** FAIL -- Expected post-card hand count: ", original.handCount[player] + 1, " Actual: ", test.handCount[player]);
+				}
 				hCountFails++;			
-			}
-			if (hCountFails == 10){
-				printf("More than 10 'choice1 = 1' fails recorded.\n");
-			} 
+				if (hCountFails == 10){
+					printf("More than 10 'choice1 = 1' fails recorded.\n");
+				}
+			}	 	
 		}
 		else if (choice1 == 2){
-                        if (myAssert(test.coins, original.coins + 2 ) == 0 && coinCountFails < 10){
-                                printf("%s%d%s%d\n", "** CHOICE1 = 2 ** FAIL -- Expected coins: ", original.coins + 2, " Actual: ", test.coins);
-                                coinCountFails++;
-                        }
-			if (coinCountFails == 10){
-				printf("More than 10 'choice1 = 2' fails recorded.\n");
+                        if (myAssert(test.coins, original.coins + 2 ) == 0){
+				if (coinCountFails < 10){
+                                	printf("%s%d%s%d\n", "** CHOICE1 = 2 ** FAIL -- Expected coins: ", original.coins + 2, " Actual: ", test.coins);
+                                }
+				coinCountFails++;
+				if (coinCountFails == 10){
+					printf("More than 10 'choice1 = 2' fails recorded.\n");
+				}
 			}
 		}
 		else if (choice1 == 3){
-			if (myAssert(test.handCount[player], original.handCount[player] - 3) == 0 && discardCountFails < 10){
-				printf("%s%d%s%d\n", "** CHOICE1 = 3 ** FAIL -- Expected post-card hand count: ", original.handCount[player] - 3, " Actual: ", test.handCount[player]);
+			if (myAssert(test.handCount[player], original.handCount[player] - 3) == 0){
+				if(discardCountFails < 10){
+					printf("%s%d%s%d\n", "** CHOICE1 = 3 ** FAIL -- Expected post-card hand count: ", original.handCount[player] - 3, " Actual: ", test.handCount[player]);
+				}
 				discardCountFails++;
 			}
 			if (discardCountFails == 10){
@@ -117,14 +123,14 @@ void randomSteward(){
 		printf("PASS\n");
 	}
         printf("CHOICE1 = 2: Test post card coins incrementing properly: ");
-        if (hCountFails > 0){
-                printf("FAIL\n");
+        if (coinCountFails > 0){
+                printf("%s%d\n","FAILS: ", coinCountFails);
         }
         else {
        	     printf("PASS\n");
         }
 	printf("CHOICE1 = 3: Test post card hand count decrementing properly: ");
-	if (hCountFails > 0){
+	if (discardCountFails > 0){
 		printf("FAIL\n");
 	}
 	else {

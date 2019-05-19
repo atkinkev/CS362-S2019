@@ -3,21 +3,33 @@
 *****************************************************************************
 *************************** BEGIN REMODEL TEST ***************************
 *****************************************************************************
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 11 Actual: 10
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 7 Actual: 6
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 5 Actual: 4
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 9 Actual: 8
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 3 Actual: 2
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 2 Actual: 1
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 5 Actual: 4
-FAIL: Valid choice not added to deck. Expected choice2 cards in deck: 1 Actual: 0
-More than 10 fails recorded for this test. See end of test totals for total counts.
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+More than 10 fails recorded for finding choice2 in discard. See end of test totals for total counts.
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+More than 10 fails recorded for discard count checking. See end of totals for total counts.
 
 **** END OF TEST TOTALS ****
-Chosen Card Discrepancies: 62959
+Chosen Card not added to Discard Fails: 41679
+Test proper number of cards added to discard fails: 40006
 
 *****************************************************************************
 *************************** BEGIN STEWARD TEST ***************************
@@ -32,20 +44,20 @@ CHOICE1 = 3: Test post card hand count decrementing properly: PASS
 *****************************************************************************
 *************************** BEGIN ADVENTURER TEST ***************************
 *****************************************************************************
-FAIL -- Expected Treasure: 16 Actual: 17
-FAIL -- Expected Treasure: 28 Actual: 29
 FAIL -- Expected Treasure: 13 Actual: 14
-FAIL -- Expected Treasure: 9 Actual: 10
+FAIL -- Expected Treasure: 7 Actual: 8
+FAIL -- Expected Treasure: 2 Actual: 3
+FAIL -- Expected Treasure: 16 Actual: 17
+FAIL -- Expected Treasure: 13 Actual: 14
+FAIL -- Expected Treasure: 32 Actual: 33
 FAIL -- Expected Treasure: 11 Actual: 12
+FAIL -- Expected Treasure: 17 Actual: 18
+FAIL -- Expected Treasure: 27 Actual: 28
 FAIL -- Expected Treasure: 51 Actual: 52
-FAIL -- Expected Treasure: 11 Actual: 12
-FAIL -- Expected Treasure: 30 Actual: 31
-FAIL -- Expected Treasure: 48 Actual: 49
-FAIL -- Expected Treasure: 47 Actual: 48
 More than 10 treasure discrepancies. See end of log for total failures.
 
 **** END OF TEST TOTALS ****
-Treasure Discrepancies: 98142
+Treasure Discrepancies: 98216
 
 
 File 'dominion.c'
