@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include <string.h>
 
 int myAssert(int val1, int val2){
@@ -21,9 +22,10 @@ int myAssert(int val1, int val2){
 void testVillage(){
 	struct gameState test;
 	struct gameState original;
-	int handPos = 0;
+	int handpos = 0;
         int player = -1;
         int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
+	int bonus[] = {};
 	
 	initializeGame(2, k, 30, &test);
 	drawCard(player, &test);
@@ -33,7 +35,7 @@ void testVillage(){
 	memcpy(&original, &test, sizeof(struct gameState));
 	player = whoseTurn(&test);
 	
-	villageEffect(player, &test, 0);
+	cardEffect(village, 0, 0, 0, &test, handpos, bonus); 	
 
         printf("*****************************************************************************\n");
         printf("%s\n", "*************************** BEGIN VILLAGE TEST ***************************");

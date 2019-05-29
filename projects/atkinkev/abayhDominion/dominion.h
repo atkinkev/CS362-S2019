@@ -106,8 +106,13 @@ int numHandCards(struct gameState *state);
 int handCard(int handNum, struct gameState *state);
 /* enum value of indexed card in player's hand */
 
+int gainCard(int supplyPos, struct gameState *state, int toFlag, int player);
+
 int supplyCount(int card, struct gameState *state);
 /* How many of given card are left in supply */
+
+int drawCard(int player, struct gameState *state);
+
 
 int fullDeckCount(int player, int card, struct gameState *state);
 /* Here deck = hand + discard + deck */

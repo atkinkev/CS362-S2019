@@ -15,21 +15,21 @@ FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Ac
 FAIL: Discard count not accurate. Expected: 3 Actual: 0
 FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
 FAIL: Discard count not accurate. Expected: 3 Actual: 0
-FAIL: Discard count not accurate. Expected: 3 Actual: 1
-FAIL: Discard count not accurate. Expected: 3 Actual: 1
 FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
 FAIL: Discard count not accurate. Expected: 3 Actual: 0
-FAIL: Discard count not accurate. Expected: 3 Actual: 1
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
+FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
+FAIL: Discard count not accurate. Expected: 3 Actual: 0
 More than 10 fails recorded for discard count checking. See end of totals for total counts.
-FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
-FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
-FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
 FAIL: Valid choice not added to discard. Expected choice2 cards in discard: 1 Actual: 0
 More than 10 fails recorded for finding choice2 in discard. See end of test totals for total counts.
 
 **** END OF TEST TOTALS ****
-Chosen Card not added to Discard Fails: 23991
-Test proper number of cards added to discard fails: 38973
+Chosen Card not added to Discard Fails: 23539
+Test proper number of cards added to discard fails: 38829
 
 *****************************************************************************
 *************************** BEGIN STEWARD TEST ***************************

@@ -1,0 +1,37 @@
+*****************************************************************************
+*************************** BEGIN gainCard() TEST ***************************
+*****************************************************************************
+Test gainCard with flag 0 is sent to discard: PASS
+Test gainCard with flag 1 is sent to deck: PASS
+Test gainCard with flag 2 is sent to hand: PASS
+Testing gainCard with unsupported flag doesn't crash: PASS
+*****************************************************************************
+*************************** BEGIN endTurn() TEST ***************************
+*****************************************************************************
+Testing that it is player 2's turn after player 1 ends their turn: PASS
+Testing that it is player 1's turn after player 2 ends their turn (2 player game): PASS
+*****************************************************************************
+*************************** BEGIN VILLAGE TEST ***************************
+*****************************************************************************
+Testing proper number of actions after playing Village: FAIL
+Testing proper number of cards in hand after playing Village: PASS
+Testing proper number of cards in deck after playing Village: PASS
+*****************************************************************************
+*************************** BEGIN COUNCIL_ROOM TEST ***************************
+*****************************************************************************
+Testing gain of 4 cards and 1 discard after playing Council Room: PASS
+Testing gain of 1 card for all other players: PASS
+*****************************************************************************
+*************************** BEGIN STEWARD TEST ***************************
+*****************************************************************************
+Testing Steward card with coins at INT_MAX: FAIL - Integer addition at INT_MAX unhandled.
+*****************************************************************************
+*************************** BEGIN SMITHY TEST ***************************
+*****************************************************************************
+Testing Smithy behavior added 3 cards to hand: FAIL - Expected: 7 Actual: 8
+Testing Smithy added to discard pile: FAIL - Expected: 1 Actual: 0
+*****************************************************************************
+*************************** BEGIN REMODEL TEST ***************************
+*****************************************************************************
+Testing choice1 and choice2 outside of array index range doesn't crash and no changes are made: PASS
+Testing trash card choice outside of hand range doesn't crash and no changes are made: PASS

@@ -25,13 +25,15 @@ void testCouncilRoom(){
 	int i = 0;
 	int player = -1;
 	int choice1 = 1;
+	int bonus[] = {};
 	int k[10] = {adventurer, steward, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
         
 	initializeGame(4, k, 30, &test);
 	memcpy(&original, &test, sizeof(struct gameState));
 	player = whoseTurn(&test);
-	
-	council_roomEffect(player, &test, 0);
+
+
+	cardEffect(council_room, 0, 0, 0, &test, 0, bonus);	
 
         printf("*****************************************************************************\n");
         printf("%s\n", "*************************** BEGIN COUNCIL_ROOM TEST ***************************");
