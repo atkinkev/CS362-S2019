@@ -37,7 +37,62 @@ protected void setUp() {
          testPartsIndex[index] = 0;
       }
    }
+   
+   /*
+   * CS362 Group Tests 
+   */
+   public void testIsValid_1() {
+	   String url = "";
+	   boolean expected = false;
+	   boolean result = false;
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   
+	   for(int i = 0; i < protocol.length; i++) {
+		   url = protocol[i].item + "://www.google.com";
+		   expected = protocol[i].valid;
+		   result = urlVal.isValid(url);
+		   assertEquals(expected, result);
+	   }
+   }
+   
+   public void testIsValid_2() {
+	   
+	   return;
+   }
 
+   
+   
+   
+   
+   
+   ResultPair[] protocol = {new ResultPair("http", true),
+           new ResultPair("https", true),
+           new ResultPair("httpd", false),
+           new ResultPair("", true)};
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   /* BEGIN ORIGINAL TEST CODE */	
    public void testIsValid() {
         testIsValid(testUrlParts, UrlValidator.ALLOW_ALL_SCHEMES);
         setUp();
@@ -72,6 +127,7 @@ protected void setUp() {
       }
 
    }
+   
 
    /**
     * Create set of tests by taking the testUrlXXX arrays and
