@@ -73,7 +73,7 @@ void randomAdventurerTest(){
 	
 		handpos = test.hand[player][test.handCount[player] - 1];	
 		memcpy(&original, &test, sizeof(struct gameState));
-	
+			
 		cardEffect(adventurer, choice1, choice2, choice3, &test, handpos, bonus);
 		
 		treasureFound = 0;

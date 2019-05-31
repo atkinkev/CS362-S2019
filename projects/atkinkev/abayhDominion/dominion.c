@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-
+#include <limits.h>
 
 int compare(const void* a, const void* b) {
   if (*(int*)a > *(int*)b)
@@ -661,7 +661,7 @@ Refactored cards are adventurer, smithy, village, council room, great hall.
 int adventurerRF(int* drawntreasure, struct gameState *state, int* cardDrawn, int temphand[], int currentPlayer){
   
   int z=0;
-  
+ 
   while(*drawntreasure<2){
   if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
     shuffle(currentPlayer, state);
@@ -669,7 +669,7 @@ int adventurerRF(int* drawntreasure, struct gameState *state, int* cardDrawn, in
   drawCard(currentPlayer, state);
   *cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
   if (*cardDrawn == copper || *cardDrawn == silver || *cardDrawn == gold){
-    *drawntreasure = 1;
+    *drawntreasure++;
   }
   else{
     temphand[z]=*cardDrawn;
@@ -695,7 +695,8 @@ int smithyRF(int currentPlayer, struct gameState* state, int handPos){
   }
       
   //discard card from hand
-  //discardCard(handPos, currentPlayer, state, 0);
+  discardCard(handPos, currentPlayer, state, 0);
+
   return 0;
 }
 
@@ -775,8 +776,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   if (nextPlayer > (state->numPlayers - 1)){
     nextPlayer = 0;
   }
-  
-  
+   
   if(card==adventurer){
         return adventurerRF(&drawntreasure, state, &cardDrawn, temphand, currentPlayer);
   }
@@ -797,7 +797,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card ) 
     {
   
-  /*
+/*
     case adventurer:
       while(drawntreasure<2){
         if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
@@ -1143,7 +1143,9 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
           else if (choice1 == 2)
       {
         //+2 coins
-        state->coins = state->coins + 2;
+        if (state->coins != INT_MAX){
+        	state->coins = state->coins + 2;
+	}
       }
           else
       {

@@ -24,14 +24,24 @@ Testing gain of 1 card for all other players: PASS
 *****************************************************************************
 *************************** BEGIN STEWARD TEST ***************************
 *****************************************************************************
-Testing Steward card with coins at INT_MAX: FAIL - Integer addition at INT_MAX unhandled.
+Testing Steward card with coins at INT_MAX: PASS: Integer overflow prevented.
 *****************************************************************************
 *************************** BEGIN SMITHY TEST ***************************
 *****************************************************************************
-Testing Smithy behavior added 3 cards to hand: FAIL - Expected: 7 Actual: 8
-Testing Smithy added to discard pile: FAIL - Expected: 1 Actual: 0
+Testing Smithy behavior added 3 cards to hand: PASS
+Testing Smithy added to discard pile: PASS
 *****************************************************************************
 *************************** BEGIN REMODEL TEST ***************************
 *****************************************************************************
 Testing choice1 and choice2 outside of array index range doesn't crash and no changes are made: PASS
 Testing trash card choice outside of hand range doesn't crash and no changes are made: PASS
+*****************************************************************************
+*************************** BEGIN ADVENTURER TEST ***************************
+*****************************************************************************
+Testing Adventurer card with deck full of treasure: FAIL: Improper number of treasure cards added to deck. Expected: 2 Actual: 1
+Testing Adventurer card with all Treasure cards removed from deck: PASS: No treasure cards added to deck and infinite loop avoided.
+Testing Adventurer card with only one treasure card in deck: FAIL: No treasure cards added to deck.
+File 'dominion.c'
+Lines executed:39.15% of 562
+Creating 'dominion.c.gcov'
+

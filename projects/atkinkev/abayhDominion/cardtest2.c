@@ -55,11 +55,11 @@ void testSmithy(){
 
 	/**	TEST 2 - VERIFY DISCARDED CARD ADDED TO DISCARD	**/
 	printf("%s", "Testing Smithy added to discard pile: ");
-	if (myAssert(test.discardCount[player], original.discardCount[player] + 1) == 1){
+	if (myAssert(test.playedCardCount, original.playedCardCount + 1) == 1){
 		printf("%s\n", "PASS");
 	}
 	else{
-		 printf("%s%d%s%d\n", "FAIL - Expected: ", original.discardCount[player] + 1, " Actual: ", test.discardCount[player]);
+		 printf("%s%d%s%d\n", "FAIL - Expected: ", original.playedCardCount + 1, " Actual: ", test.playedCardCount);
 	}
 }
 
