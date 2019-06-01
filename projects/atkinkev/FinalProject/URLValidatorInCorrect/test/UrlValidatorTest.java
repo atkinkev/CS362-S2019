@@ -16,7 +16,7 @@
  */
 
 import junit.framework.TestCase;
-
+import java.util.Random;
 /**
  * Performs Validation Test for url validations.
  *
@@ -33,7 +33,40 @@ public class UrlValidatorTest extends TestCase {
    */
    // Positive Tests for protocol
   public void testIsValid_1() {
-	   
+	  boolean result = false;
+	  int appendChar = -1;
+	  Random r = new Random();
+	  
+	  UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES); 
+	  
+	  String url = "";
+	  StringBuilder sb = new StringBuilder(20);
+	  String safeChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	  String reservedChars = "; / ? : @ = &";
+	  
+	  // Randomly generate domains with safe chars
+	  for(int i = 0; i < 1000; i++) {
+		  for (int j = 0; j < 20; j++) {
+			  appendChar = r.nextInt(safeChars.length());
+			  sb.append(safeChars.charAt(appendChar));
+		  }
+		  url = "http://www." + sb.toString() + ".com";	
+		  result = urlVal.isValid(url);
+		  assertTrue("Random safe domain should validate.", result);
+		  sb.setLength(0);
+	  }
+	  
+	  // Randomly generate domains with reserved chars
+	  for(int i = 0; i < 1000; i++) {
+		  for (int j = 0; j < 20; j++) {
+			  appendChar = r.nextInt(reservedChars.length());
+			  sb.append(reservedChars.charAt(appendChar));
+		  }
+		  url = "http://www." + sb.toString() + ".com";
+		  result = urlVal.isValid(url);
+		  assertFalse("URL full of reserved chars should not validate.", result);
+		  sb.setLength(0);
+	  }
    }
    
   // Boundary tests for url val
@@ -43,3 +76,5 @@ public class UrlValidatorTest extends TestCase {
    }
 
 }
+
+
