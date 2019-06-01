@@ -31,12 +31,11 @@ public class UrlValidatorTest extends TestCase {
    /*
    * CS362 Group Tests 
    */
-   // Positive Tests for protocol
+   // Positive Random Tests for protocol
   public void testIsValid_1() {
 	  boolean result = false;
 	  int appendChar = -1;
 	  Random r = new Random();
-	  
 	  UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES); 
 	  
 	  String url = "";
@@ -56,11 +55,13 @@ public class UrlValidatorTest extends TestCase {
 		  sb.setLength(0);
 	  }
 	  
-	  // Randomly generate domains with reserved chars
+	  // Randomly generate domains with reserved/safe chars
 	  for(int i = 0; i < 1000; i++) {
 		  for (int j = 0; j < 20; j++) {
 			  appendChar = r.nextInt(reservedChars.length());
 			  sb.append(reservedChars.charAt(appendChar));
+			  appendChar = r.nextInt(safeChars.length());
+			  sb.append(safeChars.charAt(appendChar));
 		  }
 		  url = "http://www." + sb.toString() + ".com";
 		  result = urlVal.isValid(url);
@@ -69,10 +70,39 @@ public class UrlValidatorTest extends TestCase {
 	  }
    }
    
-  // Boundary tests for url val
+  // Test random portnums
    public void testIsValid_2() {
+	   boolean result = false;
+	   boolean expected = false;
+	   Random r = new Random();
+	   int portNum = -1;
+	   String url = "";
+	   
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES); 
+	
+	   // testing positive port nums
+	   for (int i = 0; i < 1000; i++) {
+		   portNum = r.nextInt(150000);
+		   if (portNum > 65535 || portNum < 1) {
+			   expected = false;
+		   }
+		   else {
+			   expected = true;
+		   }   
+		   url = "http://google.com:" + portNum;
+		   result = urlVal.isValid(url);
+		   assertEquals("Port number within range should validate.", expected, result);
+	   }
+	   
+	   for (int i = 0; i < 1000; i++) {
+		   portNum = r.nextInt(150000) * -1;
+		   expected = false;
 
-	   return;
+		   url = "http://google.com:" + portNum;
+		   result = urlVal.isValid(url);
+		   assertEquals("Port number within range should validate.", expected, result);
+	   }
+
    }
 
 }
