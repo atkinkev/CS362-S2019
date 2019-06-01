@@ -27,13 +27,6 @@ public class UrlValidatorTest extends TestCase {
    public UrlValidatorTest(String testName) {
       super(testName);
    }
-
-   @Override
-protected void setUp() {
-      for (int index = 0; index < testPartsIndex.length - 1; index++) {
-         testPartsIndex[index] = 0;
-      }
-   }
    
    /*
    * CS362 Group Tests 
@@ -43,7 +36,12 @@ protected void setUp() {
 	   String url = "";
 	   boolean expected = false;
 	   boolean result = false;
-	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.NO_FRAGMENTS);
+	   
+	   //quick fragment check
+	   url = "http://www.google.com/ /";
+	   result = urlVal.isValid(url);
+	   assertEquals(url, false, result);
 	   
 	   // testing domain names
 	   for (int j = 0; j < domainName.length; j++) {
@@ -60,10 +58,30 @@ protected void setUp() {
 		   result = urlVal.isValid(url);
 		   assertEquals(url, expected, result);
 	   }
+	   
+	   //testing paths
+	   for (int j = 0; j < sitePaths.length; j++) {
+		   url = "http://www.google.com" + sitePaths[j].item;
+		   expected = sitePaths[j].valid;
+		   result = urlVal.isValid(url);
+		   assertEquals(url, expected, result);
+	   }
+	   
    }
    
+  // Boundary tests for url val
    public void testIsValid_2() {
+	   String url = "";
+	   boolean result = false;
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);   
+	   // super long domain (but within max)
+	   url = "http://www.IpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRep.com";
+	   result = urlVal.isValid(url);
+	   assertTrue("Long domain should still validate." + url, result);
 	   
+	   url = "http://www.IpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRepublicforwhichitstandsonenationunderGodindivisiblewithLibertyandJusticeforallIpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRepublicforwhichitstandsonenationunderGodindivisiblewithLibertyandJusticeforallIpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRepublicforwhichitstandsonenationunderGodindivisiblewithLibertyandJusticeforall";
+	   result = urlVal.isValid(url);
+	   assertFalse("Domain longer than 253 chars should fail.", result);
 	   return;
    }
    
@@ -77,107 +95,19 @@ protected void setUp() {
 		   new ResultPair("g.o..o.g.l.e", false),	// dots in the domain
 		   new ResultPair("--google", false),		// begins with dash
 		   new ResultPair("google--", false),
-		   new ResultPair("g!o!o!g!l!e", false)};	// excited google, invalid char
+		   new ResultPair("g!o!o!g!l!e", false),	// excited google, invalid char
+		   new ResultPair("aliens", true)};			// arbitrary valid
    
-   ResultPair[] topLevel = {new ResultPair(".probablyNotValid", false)};
-   	
-
-   //-------------------- Test data for creating a composite URL
-   /**
-    * The data given below approximates the 4 parts of a URL
-    * 
-    * <scheme>://<authority><path>?<query> except that the port number
-    * is broken out of authority to increase the number of permutations.
-    * A complete URL is composed of a scheme+authority+port+path+query,
-    * all of which must be individually valid for the entire URL to be considered
-    * valid.
-    */
-   ResultPair[] testUrlScheme = {new ResultPair("http://", true),
-                               new ResultPair("ftp://", true),
-                               new ResultPair("h3t://", true),
-                               new ResultPair("3ht://", false),
-                               new ResultPair("http:/", false),
-                               new ResultPair("http:", false),
-                               new ResultPair("http/", false),
-                               new ResultPair("://", false)};
-
-   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
-                                  new ResultPair("www.google.com.", true),
-                                  new ResultPair("go.com", true),
-                                  new ResultPair("go.au", true),
-                                  new ResultPair("0.0.0.0", true),
-                                  new ResultPair("255.255.255.255", true),
-                                  new ResultPair("256.256.256.256", false),
-                                  new ResultPair("255.com", true),
-                                  new ResultPair("1.2.3.4.5", false),
-                                  new ResultPair("1.2.3.4.", false),
-                                  new ResultPair("1.2.3", false),
-                                  new ResultPair(".1.2.3.4", false),
-                                  new ResultPair("go.a", false),
-                                  new ResultPair("go.a1a", false),
-                                  new ResultPair("go.cc", true),
-                                  new ResultPair("go.1aa", false),
-                                  new ResultPair("aaa.", false),
-                                  new ResultPair(".aaa", false),
-                                  new ResultPair("aaa", false),
-                                  new ResultPair("", false)
-   };
-   ResultPair[] testUrlPort = {new ResultPair(":80", true),
-                             new ResultPair(":65535", true), // max possible
-                             new ResultPair(":65536", false), // max possible +1
-                             new ResultPair(":0", true),
-                             new ResultPair("", true),
-                             new ResultPair(":-1", false),
-                             new ResultPair(":65636", false),
-                             new ResultPair(":999999999999999999", false),
-                             new ResultPair(":65a", false)
-   };
-   ResultPair[] testPath = {new ResultPair("/test1", true),
-                          new ResultPair("/t123", true),
-                          new ResultPair("/$23", true),
-                          new ResultPair("/..", false),
-                          new ResultPair("/../", false),
-                          new ResultPair("/test1/", true),
-                          new ResultPair("", true),
-                          new ResultPair("/test1/file", true),
-                          new ResultPair("/..//file", false),
-                          new ResultPair("/test1//file", false)
-   };
-   //Test allow2slash, noFragment
-   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
-                                    new ResultPair("/t123", true),
-                                    new ResultPair("/$23", true),
-                                    new ResultPair("/..", false),
-                                    new ResultPair("/../", false),
-                                    new ResultPair("/test1/", true),
-                                    new ResultPair("/#", false),
-                                    new ResultPair("", true),
-                                    new ResultPair("/test1/file", true),
-                                    new ResultPair("/t123/file", true),
-                                    new ResultPair("/$23/file", true),
-                                    new ResultPair("/../file", false),
-                                    new ResultPair("/..//file", false),
-                                    new ResultPair("/test1//file", true),
-                                    new ResultPair("/#/file", false)
-   };
-
-   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
-                              new ResultPair("?action=edit&mode=up", true),
-                              new ResultPair("", true)
-   };
-
-   Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
-   Object[] testUrlPartsOptions = {testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery};
-   int[] testPartsIndex = {0, 0, 0, 0, 0};
-
-   ResultPair[] testScheme = {new ResultPair("http", true),
-                            new ResultPair("ftp", false),
-                            new ResultPair("httpd", false),
-                            new ResultPair("gopher", true),
-                            new ResultPair("g0-to+.", true),
-                            new ResultPair("not_valid", false), // underscore not allowed
-                            new ResultPair("HtTp", true),
-                            new ResultPair("telnet", false)};
-
+   ResultPair[] topLevel = {new ResultPair(".probablyNotValid", false),
+		   new ResultPair(".**definitelyNotValid", false),	// leading bad chars
+		   new ResultPair(".net", true),
+		   new ResultPair(".us", true),		// some classics
+		   new ResultPair(".fr", true),
+		   new ResultPair(".com", true)};
+   
+   ResultPair[] sitePaths = {new ResultPair("/r/programming", true),
+		   new ResultPair("/views/Kevin\\sProfile", false),		// invalid char
+		   new ResultPair("/animals/chipmunk/", true),
+		   new ResultPair("/path?name=Kevin", true)};		//invalid query string?
 
 }
