@@ -104,6 +104,36 @@ public class UrlValidatorTest extends TestCase {
 	   }
 
    }
+   
+   public void testIsValid_3() {
+	   boolean result = false;
+	   boolean expected = false;
+	   String url = "";
+	   int randomOctet = -1;
+	   Random r = new Random();
+	   
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);  
+	   
+	   for (int i = 0; i < 1000; i++) {
+		   expected = true;
+		   url = "";
+		   for (int j = 0; j < 4; j++) {
+			   randomOctet = r.nextInt(500);
+			   if (randomOctet > 255) {
+				   expected = false;
+			   }
+			   if (j < 3) {
+				   url += randomOctet + ".";
+			   }
+			   else {
+				   url += randomOctet + "";
+			   }
+		   }
+		   url = "http://" + url;
+		   result = urlVal.isValid(url);
+		   assertEquals(url, expected, result);
+	   }
+   }
 
 }
 
