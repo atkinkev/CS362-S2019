@@ -17,6 +17,9 @@
 
 import junit.framework.TestCase;
 import java.util.Random;
+import java.net.URL;
+
+
 /**
  * Performs Validation Test for url validations.
  *
@@ -135,6 +138,141 @@ public class UrlValidatorTest extends TestCase {
 	   }
    }
 
+
+
+
+
+   public static String randomStringMixed() {
+       
+        int leftLimit = 33; // letter '!'
+        int rightLimit = 122; // letter '`'
+        int targetStringLength = 7;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+              (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+    
+        return generatedString;
+    }
+   
+   
+   public static String randomStringShort() {
+       
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 7;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+              (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+    
+        return generatedString;
+    }
+   
+   public static String randomStringLong() {
+       
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 500;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+              (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+    
+        return generatedString;
+    }
+ 
+   
+   public static void testTest(){
+       
+       UrlValidator urlVal = new UrlValidator();
+       
+       assertTrue(urlVal.isValid("http://www.google.com"));
+       assertTrue(urlVal.isValid("http://www.google.com/pages/page1.html"));
+       assertTrue(urlVal.isValid("http://www.google.com:8080"));
+       assertFalse(urlVal.isValid("http://www.google.com../"));
+       assertFalse(urlVal.isValid("http://www.google.invalid/"));
+       assertFalse(urlVal.isValid("http://www.google.invalid./"));
+       
+       
+   }
+   
+   
+   public static void testMixedUrl() {
+       
+       String url = "";
+       String domain = "";
+       
+       UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+       
+       for(int i=0; i<1000; i++) {
+           
+           domain = randomStringMixed();
+           
+           url = "http://www." + domain + ".com";
+           
+           assertTrue(urlVal.isValid(url));
+       }
+
+   }
+   
+   
+   public static void testShortUrl() {
+       
+       String url = "";
+       String domain = "";
+       
+       UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+       
+       for(int i=0; i<1000; i++) {
+           
+           domain = randomStringShort();
+           
+           url = "http://www." + domain + ".com";
+           
+           assertTrue(urlVal.isValid(url));
+       }
+
+   }
+   
+   
+   public static void testLongUrl() {
+       
+       String url = "";
+       String domain = "";
+       
+       UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+       
+       for(int i=0; i<1000; i++) {
+           
+           domain = randomStringLong();
+           
+           url = "http://www." + domain + ".com";
+           
+           assertTrue(urlVal.isValid(url));
+       }
+
+       
+   }
+   
+   
+
 }
+  
+
+
+
 
 
