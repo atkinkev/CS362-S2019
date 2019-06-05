@@ -85,6 +85,25 @@ public class UrlValidatorTest extends TestCase {
 	   return;
    }
    
+   
+
+   public static void testTest(){
+	   
+       UrlValidator urlVal = new UrlValidator();
+       
+       assertTrue(urlVal.isValid("http://www.google.com"));
+       assertTrue(urlVal.isValid("http://www.google.com/pages/page1.html"));
+       assertTrue(urlVal.isValid("http://www.google.com:8080"));
+       assertFalse(urlVal.isValid("http://www.google.com../"));
+       assertFalse(urlVal.isValid("http://www.google.invalid/"));
+       assertFalse(urlVal.isValid("http://www.google.invalid./"));
+       
+       
+   }
+   
+
+
+
    ResultPair[] protocol = {new ResultPair("http", true),
            new ResultPair("https", true),
            new ResultPair("httpd", true)};
