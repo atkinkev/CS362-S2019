@@ -24,6 +24,21 @@ import junit.framework.TestCase;
  */
 public class UrlValidatorTest extends TestCase {
 
+	//ASSERT FUNCTIONS
+	private static int assertFlag = 0;
+
+	static public void assertFalse(String errMsg, boolean result){
+    	if(result != false) {
+        	System.out.println("Error: " + errMsg);
+        	assertFlag++;
+    	}
+	}
+	static public void assertTrue(String errMsg, boolean result){
+    if(result != true) {
+        System.out.println("Error: " + errMsg);
+        assertFlag++;
+    }
+}
    public UrlValidatorTest(String testName) {
       super(testName);
    }
@@ -101,7 +116,127 @@ public class UrlValidatorTest extends TestCase {
        
    }
    
+   public static void testTest2(){
 
+       UrlValidator urlVal = new UrlValidator();
+
+       assertTrue(urlVal.isValid("http://www.en.wikipedia.org"));
+       assertTrue(urlVal.isValid("http://www.en.WiKiPEDia.org"));
+       assertTrue(urlVal.isValid("http://WWW.EN.WIKIPEDIA.ORG"));
+       assertTrue(urlVal.isValid("http://WWW.en.wikipedia.ORG"));
+       assertFalse(urlVal.isValid("http://wwww.wikipedia.org"));
+       assertFalse(urlVal.isValid("http://www.wiki_pedia.org"));
+       assertFalse(urlVal.isValid("http://www. wikipedia.org"));
+       assertFalse(urlVal.isValid("http://ww.wikipedia.org"));
+       assertFalse(urlVal.isValid("http://ww.wikipedia.org"));
+	}
+
+	public void partitionTest1(){
+        System.out.println("Partition Test # 1: ");
+        assertFlag = 0;
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        //FALSE CASES
+        assertFalse("Invalid: htttp://www.gmail.com", urlVal.isValid("htttp://www.gmail.com"));
+        assertFalse("Invalid: h/t/t/p://www.gmail.com", urlVal.isValid("h/t/t/p://www.gmail.com"));
+        //TRUE CASES
+        assertTrue("Valid: http://www.gmail.com", urlVal.isValid("http://www.gmail.com"));
+        assertTrue("Valid: https://www.gmail.com", urlVal.isValid("https://www.gmail.com"));
+
+        if(assertFlag > 0) {
+            fail("Partition Test #1 Failure");
+        } else {
+            System.out.println("Partition Test #1 Successful!");
+        }
+	}
+	public void partitionTest2(){
+	    System.out.println("Partition Test #2: ");
+	    assertFlag = 0;
+	    UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	    //FALSE CASES
+	    assertFalse("Invalid: http://www.---.com", urlVal.isValid("http://www.---.com"));
+	    assertFalse("Invalid: http://www.oregonstate", urlVal.isValid("http://www.oregonstate"))
+	    assertFalse("Invalid: www/oregonstate/edu", urlVal.isValid("www/oregonstate/edu"));
+	    //TRUE CASES
+	    assertTrue("Valid: http://www.oregonstate.edu", urlVal.isValid("http://www.gmail.com"));
+	    assertTrue("Valid: https://www.gmail.com", urlVal.isValid("https://www.gmail.com"));
+	    assertTrue("Valid: https://www.reddit.com", urlVal.isValid("https://www.reddit.com"));
+
+	    if(assertFlag > 0) {
+	        fail("Partition Test #2 Failure");
+	    } else {
+	        System.out.println("Partition Test #2 Successful!");
+	    }
+	}
+	public void partitionTest3(){
+        System.out.println("Partition Test #3: ");
+        assertFlag = 0;
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        //FALSE CASES
+        assertFalse("Invalid: http://www.google.com:port#", urlVal.isValid("http://www.google.com:port#"));
+        assertFalse("Invalid: http://www.google.com:-1", urlVal.isValid("http://www.google.com:-1"));
+        assertFalse("Invalid: http://www.google.com:sftp", urlVal.isValid("http://www.google.com:sftp"));
+        //TRUE CASES
+        assertTrue("Valid: http://www.google.com:80", urlVal.isValid("http://www.google.com:80"));
+        assertTrue("Valid: http://www.reddit.com:80", urlVal.isValid("http://www.reddit.com:80"));
+        assertTrue("Valid: http://www.oregonstate.edu:80", urlVal.isValid("http://www.oregonstate.edu:80"));
+
+        if(assertFlag > 0) {
+            fail("Partition Test #3 Failure");
+        } else {
+            System.out.println("Partition Test #3 Successful!");
+        }
+	}
+	public void partitionTest4(){
+        System.out.println("Partition Test # 4: ");
+        assertFlag = 0;
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        //FALSE CASES
+        assertFalse("Invalid: htttp://www.gmail.com", urlVal.isValid("htttp://www.gmail.com"));
+        assertFalse("Invalid: h/t/t/p://www.gmail.com", urlVal.isValid("h/t/t/p://www.gmail.com"));
+        //TRUE CASES
+        assertTrue("Valid: http://www.gmail.com", urlVal.isValid("http://www.gmail.com"));
+        assertTrue("Valid: https://www.gmail.com", urlVal.isValid("https://www.gmail.com"));
+
+        if(assertFlag > 0) {
+            fail("Partition Test #4 Failure");
+        } else {
+        	System.out.println("Partition Test #4 Successful!");
+        }
+	}
+	public void partitionTest5(){
+        System.out.println("Partition Test #5: ");
+        assertFlag = 0;
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        //FALSE CASES
+        assertFalse("Invalid: http://www.reddit.com/--..,/", urlVal.isValid("http://www.reddit.com/--..,/"));
+        assertFalse("Invalid: http://www.reddit.com/bad///path", urlVal.isValid("Invalid: http://www.reddit.com/bad///path"));
+        //TRUE CASES
+        assertTrue("Valid: http://www.reddit.com/r/osuonlinecs", urlVal.isValid("http://www.reddit.com/r/osuonlinecs"));
+        assertTrue("Valid: https://oregonstate.edu/about", urlVal.isValid("https://oregonstate.edu/about"));
+
+        if(assertFlag > 0) {
+            fail("Partition Test #5 Failure");
+        } else {
+            System.out.println("Partition Test #5 Successful!");
+        }
+	}
+	public void partitionTest6(){
+        System.out.println("Partition Test # 6: ");
+        assertFlag = 0;
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        //FALSE CASES
+        assertFalse("Invalid: https://www.reddit.com/search/!?q1=1", urlVal.isValid("https://www.reddit.com/search/!?q1=1"));
+        assertFalse("Invalid: https://www.reddit.com/search/   ?q=osu", urlVal.isValid("https://www.reddit.com/search/   ?q=osu"));
+        //TRUE CASES
+        assertTrue("Valid: https://www.reddit.com/search/?q=oregon%20state", urlVal.isValid("https://www.reddit.com/search/?q=oregon%20state"));
+        assertTrue("Valid: https://search.oregonstate.edu/?q=new+students&close=default_frontend", urlVal.isValid("https://search.oregonstate.edu/?q=new+students&close=default_frontend"));
+
+        if(assertFlag > 0) {
+            fail("Partition Test #6 Failure");
+        } else {
+            System.out.println("Partition Test #6 Successful!");
+        }
+	}
 
 
    ResultPair[] protocol = {new ResultPair("http", true),
