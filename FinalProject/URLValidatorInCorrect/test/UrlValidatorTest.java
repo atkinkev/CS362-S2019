@@ -24,6 +24,22 @@ import junit.framework.TestCase;
  */
 public class UrlValidatorTest extends TestCase {
 
+  //ASSERT FUNCTIONS
+  private static int assertFlag = 0;
+
+  static public void assertFalse(String errMsg, boolean result){
+    if(result != false) {
+      System.out.println("Error: " + errMsg);
+      assertFlag++;
+    }
+  }
+  static public void assertTrue(String errMsg, boolean result){
+    if(result != true) {
+        System.out.println("Error: " + errMsg);
+        assertFlag++;
+    }
+  }
+
    private final boolean printStatus = false;
    private final boolean printIndex = false;//print index that indicates current scheme,host,port,path, query test were using.
 
@@ -598,6 +614,31 @@ protected void setUp() {
                             new ResultPair("not_valid", false), // underscore not allowed
                             new ResultPair("HtTp", true),
                             new ResultPair("telnet", false)};
-
-
+    //RANDOM URL VALIDATOR
+    public void randomURLValidator() {
+      UrlValidator urlValue = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES );
+      Random rand = new Random();
+      assertFlag = 0;
+      //CRREATE 10 RANDOM URL STRINGS
+      for (int i = 0; i < 10; i++) {
+         String URL = "http://";
+         //AUTHORITY
+         URL += URLHelpers.randomValidHost(rand.nextInt(20)+1, rand.nextInt(5)+1);
+         //PORT NUMBER
+         URL += ":" + URLHelpers.randomValidPortNumber();
+         // 0, 1, or 2 PATH SEGMENT
+         URL += URLHelpers.randomValidPath(rand.nextInt(10)+2, rand.nextInt(3));
+         //VALID QUERRY
+         URL += URLHelpers.randomValidQuery(rand.nextInt(30));
+         //DISPLAY
+         System.out.printf("Testing URL # %d: %s %n", i + 1, URL);
+         assertTrue(urlVal.isValid(URL));
+      }
+      //To calculate failures, subract assertFlag from 10
+      int failures = 10 - assertFlag;
+      if (assertFlag != 10) {
+        fail("%d Random URL Test Failure(s)", failures);
+      } else {
+        System.out.println("%d Random URL Test(s) Successful!", i);
+      }                       
 }
