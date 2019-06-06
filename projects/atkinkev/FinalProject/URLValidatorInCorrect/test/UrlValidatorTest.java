@@ -139,9 +139,6 @@ public class UrlValidatorTest extends TestCase {
    }
 
 
-
-
-
    public static String randomStringMixed() {
        
         int leftLimit = 33; // letter '!'
@@ -194,20 +191,6 @@ public class UrlValidatorTest extends TestCase {
         return generatedString;
     }
  
-   
-   public static void testTest(){
-       
-       UrlValidator urlVal = new UrlValidator();
-       
-       assertTrue(urlVal.isValid("http://www.google.com"));
-       assertTrue(urlVal.isValid("http://www.google.com/pages/page1.html"));
-       assertTrue(urlVal.isValid("http://www.google.com:8080"));
-       assertFalse(urlVal.isValid("http://www.google.com../"));
-       assertFalse(urlVal.isValid("http://www.google.invalid/"));
-       assertFalse(urlVal.isValid("http://www.google.invalid./"));
-       
-       
-   }
    
    
    public static void testMixedUrl() {
