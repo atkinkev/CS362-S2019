@@ -88,16 +88,29 @@ public class UrlValidatorTest extends TestCase {
    public void testIsValid_2() {
 	   String url = "";
 	   boolean result = false;
+	   boolean expected = false;
+	   StringBuilder sb = new StringBuilder(20000);
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);   
 	   // super long domain (but within max)
 	   url = "http://www.IpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRep.com";
 	   result = urlVal.isValid(url);
 	   assertTrue("Long domain should still validate." + url, result);
 	   
+	   //super duper long domain (longer than max)
 	   url = "http://www.IpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRepublicforwhichitstandsonenationunderGodindivisiblewithLibertyandJusticeforallIpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRepublicforwhichitstandsonenationunderGodindivisiblewithLibertyandJusticeforallIpledgeAllegiancetotheflagoftheUnitedStatesofAmericaandtotheRepublicforwhichitstandsonenationunderGodindivisiblewithLibertyandJusticeforall";
 	   result = urlVal.isValid(url);
 	   assertFalse("Domain longer than 253 chars should fail.", result);
-	   return;
+	   
+	   // MASSIVE domain
+	   sb.append("http://www.");
+	   for(int i = 11; i < sb.capacity() - 4; i++) {
+		   sb.append("A");
+	   }
+	   sb.append(".com");
+	   url = sb.toString();
+	   expected = false;
+	   result = urlVal.isValid(url);
+	   assertEquals(url, expected, result);
    }
    
    
