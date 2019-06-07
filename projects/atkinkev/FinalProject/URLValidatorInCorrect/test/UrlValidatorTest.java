@@ -206,7 +206,12 @@ public class UrlValidatorTest extends TestCase {
            
            url = "http://www." + domain + ".com";
            
-           assertTrue(urlVal.isValid(url));
+           try{
+        	   urlVal.isValid(url);
+           }
+           catch (Exception e) {
+        	   fail("Should not throw exceptions for any combination of chars.");
+           }
        }
 
    }
@@ -244,7 +249,12 @@ public class UrlValidatorTest extends TestCase {
            
            url = "http://www." + domain + ".com";
            
-           assertTrue(urlVal.isValid(url));
+           try{
+        	   urlVal.isValid(url);
+           }
+           catch (Exception e) {
+        	   fail("Should not throw exceptions for any combination of chars.");
+           }
        }
 
        
